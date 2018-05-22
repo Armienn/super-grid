@@ -16,6 +16,8 @@ window.onload = () => {
 	}
 	onresize = onResize
 
+	game.startGame()
+
 	requestAnimationFrame(drawFrame)
 	setInterval(gameTick, 50)
 

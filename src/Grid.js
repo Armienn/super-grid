@@ -22,17 +22,26 @@ class Grid {
 		if (this.fields[i][j])
 			this.fields[i][j].draw()
 		var selected = false
-		if(game.selected)
+		if (game.selected)
 			selected = game.selected.x == i && game.selected.y == j
 		context.strokeStyle = selected ? "yellow" : "red"
 		context.strokeRect(0, 0, game.gridSize, game.gridSize)
 		context.restore()
 	}
 
+	surroundingFields(position) {
+		var surrounding = []
+		this.forSurroundingFields(position, (position, thing)=>{
+			surrounding.push({position: position, thing: thing})
+		})
+		return surrounding
+	}
+
 	forSurroundingFields(position, callback) {
 		for (var i = position.x - 1; i <= position.x + 1; i++)
 			for (var j = position.y - 1; j <= position.y + 1; j++)
 				if (i != j
+					&& Math.abs((i-position.x) * (j-position.y)) < 0.01
 					&& this.isWithinHorisontalBounds(i)
 					&& this.isWithinVerticalBounds(j))
 					callback(new Vector(i, j), this.fields[i][j])
