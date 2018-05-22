@@ -49,6 +49,10 @@ class Game {
 		var success = this.tryAdd(new Tower(), position.copy())
 	}
 
+	addWall(position) {
+		var success = this.tryAdd(new Wall(), position.copy())
+	}
+
 	addCore(position) {
 		this.core = new Core(position)
 		this.grid.fields[position.x][position.y] = this.core

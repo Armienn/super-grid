@@ -2,11 +2,11 @@
 class Tower {
 	constructor(position) {
 		this.pos = position
-		this.health = 10
+		this.health = 3
 	}
 
 	draw() {
-		context.fillStyle = ToRgbString(HSVtoRGB(0.03 * this.health, 1, 1))
+		context.fillStyle = "blue"
 		context.fillRect(0, 0, game.gridSize, game.gridSize)
 	}
 

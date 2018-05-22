@@ -27,9 +27,10 @@ window.onload = () => {
 	window.onkeypress = (event) => {
 		if (!game.selected)
 			return
-		if (event.key == "t") {
+		if (event.key == "t")
 			game.addTower(game.selected)
-		}
+		if (event.key == "w")
+			game.addWall(game.selected)
 	}
 }
 

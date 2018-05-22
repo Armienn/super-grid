@@ -6,7 +6,7 @@ class Enemy {
 	}
 
 	draw() {
-		context.fillStyle = "yellow"
+		context.fillStyle = "purple"
 		context.fillRect(0, 0, game.gridSize, game.gridSize)
 	}
 
