@@ -1,7 +1,8 @@
 "use strict"
 class Enemy {
-	constructor(field) {
-		this.field = field
+	constructor(x, y) {
+		this.x = x
+		this.y = y
 	}
 
 	draw() {
@@ -10,12 +11,20 @@ class Enemy {
 	}
 
 	tick() {
-		var nextX = this.field.x - 1
-		if (nextX < 0)
-			nextX = grid.fields.length - 1
-		var nextY = this.field.y
-		this.field.thing = null
-		this.field = grid.fields[nextX][nextY]
-		this.field.thing = this
+		var destinations = this.findAvailableDestinations()
+		if(destinations[0]){
+			this.x = destinations[0].x
+			this.y = destinations[0].y
+		}
+		game.nextGrid.fields[this.x][this.y] = this
+	}
+
+	findAvailableDestinations() {
+		var availables = []
+		game.grid.forSurroundingFields(this.x, this.y, (x, y, thing) => {
+			if (!thing)
+				availables.push({ x: x, y: y })
+		})
+		return availables
 	}
 }

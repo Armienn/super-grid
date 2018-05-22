@@ -1,8 +1,7 @@
 "use strict"
 var canvas
 var context
-var grid = new Grid(30,20)
-grid.fields[2][3].thing = new Enemy(grid.fields[2][3])
+var game = new Game()
 
 window.onload = () => {
 	canvas = document.createElement("canvas")
@@ -56,10 +55,10 @@ window.onload = () => {
 function drawFrame(time) {
 	context.fillStyle = "black"
 	context.fillRect(0, 0, canvas.width, canvas.height)
-	grid.draw()
+	game.draw()
 	requestAnimationFrame(drawFrame)
 }
 
 function gameTick(){
-	grid.tick()
+	game.tick()
 }
