@@ -1,8 +1,10 @@
 class Game {
 	constructor() {
+		this.gridSize = 30
 		this.grid = new Grid(30, 20)
-		this.grid.fields[2][3] = new Enemy(2,3)
+		this.add(new Enemy(), new Vector(2, 3))
 		this.nextGrid = new Grid(30, 20)
+		this.selected = null
 	}
 
 	tick() {
@@ -14,7 +16,12 @@ class Game {
 		this.grid = this.nextGrid
 	}
 
-	draw(){
+	draw() {
 		this.grid.draw()
+	}
+
+	add(thing, position) {
+		this.grid.fields[position.x][position.y] = thing
+		thing.pos = position
 	}
 }

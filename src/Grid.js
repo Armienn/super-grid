@@ -1,7 +1,6 @@
 "use strict"
 class Grid {
 	constructor(width, height) {
-		this.gridSize = 30
 		this.fields = []
 		for (var i = 0; i < width; i++) {
 			var blub = []
@@ -19,21 +18,24 @@ class Grid {
 
 	drawField(i, j) {
 		context.save()
-		context.translate(i * this.gridSize, j * this.gridSize)
+		context.translate(i * game.gridSize, j * game.gridSize)
 		if (this.fields[i][j])
 			this.fields[i][j].draw()
-		context.strokeStyle = "red"
-		context.strokeRect(0, 0, this.gridSize, this.gridSize)
+		var selected = false
+		if(game.selected)
+			selected = game.selected.x == i && game.selected.y == j
+		context.strokeStyle = selected ? "yellow" : "red"
+		context.strokeRect(0, 0, game.gridSize, game.gridSize)
 		context.restore()
 	}
 
-	forSurroundingFields(x, y, callback) {
-		for (var i = x - 1; i <= x + 1; i++)
-			for (var j = y - 1; j <= y + 1; j++)
+	forSurroundingFields(position, callback) {
+		for (var i = position.x - 1; i <= position.x + 1; i++)
+			for (var j = position.y - 1; j <= position.y + 1; j++)
 				if (i != j
 					&& this.isWithinHorisontalBounds(i)
 					&& this.isWithinVerticalBounds(j))
-					callback(i, j, this.fields[i][j])
+					callback(new Vector(i, j), this.fields[i][j])
 	}
 
 	isWithinHorisontalBounds(x) {

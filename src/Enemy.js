@@ -1,29 +1,26 @@
 "use strict"
 class Enemy {
-	constructor(x, y) {
-		this.x = x
-		this.y = y
+	constructor(position) {
+		this.pos = position
 	}
 
 	draw() {
 		context.fillStyle = "yellow"
-		context.fillRect(0, 0, 30, 30)
+		context.fillRect(0, 0, game.gridSize, game.gridSize)
 	}
 
 	tick() {
 		var destinations = this.findAvailableDestinations()
-		if(destinations[0]){
-			this.x = destinations[0].x
-			this.y = destinations[0].y
-		}
-		game.nextGrid.fields[this.x][this.y] = this
+		if (destinations[0])
+			this.pos = destinations[0]
+		game.nextGrid.fields[this.pos.x][this.pos.y] = this
 	}
 
 	findAvailableDestinations() {
 		var availables = []
-		game.grid.forSurroundingFields(this.x, this.y, (x, y, thing) => {
+		game.grid.forSurroundingFields(this.pos, (position, thing) => {
 			if (!thing)
-				availables.push({ x: x, y: y })
+				availables.push(position)
 		})
 		return availables
 	}
